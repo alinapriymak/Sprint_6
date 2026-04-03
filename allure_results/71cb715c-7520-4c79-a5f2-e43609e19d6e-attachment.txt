@@ -1,0 +1,1 @@
+{'name': 'Максим', 'surname': 'Козлова', 'address': 'ул. Гагарина, д. 90', 'metro_station': 'Комсомольская', 'phone': '+79877373908', 'rental_days': 'семеро суток', 'color': 'black', 'comment': ''}
