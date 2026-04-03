@@ -1,1 +1,0 @@
-{'name': 'Анна', 'surname': 'Смирнов', 'address': 'ул. Садовая, д. 67', 'metro_station': 'Киевская', 'phone': '+79341017607', 'rental_days': 'шестеро суток', 'color': 'grey', 'comment': 'Домофон 123'}

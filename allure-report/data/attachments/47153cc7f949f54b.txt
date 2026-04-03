@@ -1,1 +1,0 @@
-{'name': 'Мария', 'surname': 'Новикова', 'address': 'ул. Мира, д. 104', 'metro_station': 'Киевская', 'phone': '+79637361169', 'rental_days': 'двое суток', 'color': 'black', 'comment': 'Без комментариев'}

@@ -2,7 +2,6 @@ import allure
 from pages.home_page import HomePage
 from pages.order_page import OrderPage
 from utils.order_data_generator import generate_order_data
-from utils.urls import BASE_URL
 
 
 @allure.feature("Заказ самоката")
