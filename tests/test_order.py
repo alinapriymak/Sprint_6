@@ -10,11 +10,12 @@ class TestOrder:
 
     @allure.title("Заказ самоката через кнопку в хедере")
     def test_positive_order_header_button(self, driver):
-        driver.get(BASE_URL)
+     
+        home_page = HomePage(driver)
+        home_page.open_base_url() 
         
         user_data = generate_order_data()
-        
-        home_page = HomePage(driver)
+       
         home_page.click_order_header_button()
         
         order_page = OrderPage(driver)
@@ -31,11 +32,12 @@ class TestOrder:
 
     @allure.title("Заказ самоката через кнопку в блоке Как это работает")
     def test_positive_order_roadmap_button(self, driver):
-        driver.get(BASE_URL)
+        
+        home_page = HomePage(driver)
+        home_page.open_base_url()   
         
         user_data = generate_order_data()
         
-        home_page = HomePage(driver)
         home_page.click_order_roadmap_button()
         
         order_page = OrderPage(driver)

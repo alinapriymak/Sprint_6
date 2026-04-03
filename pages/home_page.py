@@ -1,8 +1,27 @@
 from pages.base_page import BasePage
 from locators.main_page_locators import HomePageLocators
+from utils.urls import BASE_URL
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class HomePage(BasePage):
+
+    # Открытие главной страницы
+    def open_base_url(self):
+        self.driver.get(BASE_URL)
+
+    # Получение текущего URL
+    def get_current_url(self):
+        return self.driver.current_url
+    
+     # Проверrf, совпадает ли URL с ожидаемым
+    def is_url_equals(self, expected_url):
+        return self.driver.current_url == expected_url
+    
+     # Проверка, содержит ли URL указанный текст
+    def is_url_contains(self, text):
+        return text in self.driver.current_url
     
     # Ожидание загрузки блока FAQ
     def wait_for_faq_section(self):
@@ -36,3 +55,15 @@ class HomePage(BasePage):
         locator = HomePageLocators.FAQ_ANSWERS[question_number]
         self.wait_for_element_visible(locator)
         return self.get_text(locator)
+    
+    # Переключение на новую вкладку 
+    def switch_to_new_window(self):
+        original_window = self.driver.current_window_handle
+        for window_handle in self.driver.window_handles:
+            if window_handle != original_window:
+                self.driver.switch_to.window(window_handle)
+                break
+    
+    # Ожидание появления новой вкладки
+    def wait_for_new_window(self, timeout=10):
+        WebDriverWait(self.driver, timeout).until(EC.number_of_windows_to_be(2))
