@@ -15,20 +15,17 @@ class TestLogoRedirect:
         home_page.open_base_url() 
         home_page.click_scooter_logo()
         
-        assert home_page.get_current_url() == BASE_URL, "Ошибка перехода на главную страницу"
+        assert home_page.check_main_page_url(), "Ошибка перехода на главную страницу"
 
     @allure.title("Переход на Дзен при клике на логотип Яндекса")
     def test_yandex_logo_redirect(self, driver):
         
         home_page = HomePage(driver)
         home_page.open_base_url() 
-        home_page.click_yandex_logo()
+        home_page.click_yandex_logo_and_switch_to_new_window()
         
-        original_window = driver.current_window_handle
-        
-        home_page.wait_for_new_window()    
-        home_page.switch_to_new_window()
-        
-        assert "dzen.ru" in driver.current_url, \
+        assert "dzen.ru" in home_page.get_current_url(), \
             "Ошибка перехода на Дзен"
+        
+        home_page.close_current_window_and_switch_back()
         

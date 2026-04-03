@@ -15,10 +15,6 @@ class HomePage(BasePage):
     def get_current_url(self):
         return self.driver.current_url
     
-     # Проверrf, совпадает ли URL с ожидаемым
-    def is_url_equals(self, expected_url):
-        return self.driver.current_url == expected_url
-    
      # Проверка, содержит ли URL указанный текст
     def is_url_contains(self, text):
         return text in self.driver.current_url
@@ -40,10 +36,6 @@ class HomePage(BasePage):
     def click_scooter_logo(self):
         self.click_element(HomePageLocators.SCOOTER_LOGO)
 
-    # Клик на логотип Яндекса
-    def click_yandex_logo(self):
-        self.click_element(HomePageLocators.YANDEX_LOGO)
-
     # Клик на вопрос в FAQ
     def click_faq_question(self, question_number):
         locator = HomePageLocators.FAQ_QUESTIONS[question_number]
@@ -56,14 +48,26 @@ class HomePage(BasePage):
         self.wait_for_element_visible(locator)
         return self.get_text(locator)
     
-    # Переключение на новую вкладку 
-    def switch_to_new_window(self):
+    # Клик на логотип и переключение на новую вкладку 
+    def click_yandex_logo_and_switch_to_new_window(self):
         original_window = self.driver.current_window_handle
-        for window_handle in self.driver.window_handles:
-            if window_handle != original_window:
-                self.driver.switch_to.window(window_handle)
-                break
+        self.click_element(HomePageLocators.YANDEX_LOGO)
+
+        WebDriverWait(self.driver, 10).until(EC.number_of_windows_to_be(2))
     
-    # Ожидание появления новой вкладки
-    def wait_for_new_window(self, timeout=10):
-        WebDriverWait(self.driver, timeout).until(EC.number_of_windows_to_be(2))
+        self.driver.switch_to.window(self.driver.window_handles[-1])
+        
+        WebDriverWait(self.driver, 10).until(EC.url_contains("dzen.ru"))
+    
+
+    # Проверка, что текущая страница главная
+    def check_main_page_url(self):
+        return self.driver.current_url == BASE_URL
+    
+    def close_current_window_and_switch_back(self):
+        self.driver.close()
+        self.driver.switch_to.window(self.driver.window_handles[0])
+
+
+
+ 
